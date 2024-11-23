@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6609196602357741455}
   - component: {fileID: 5429373905869241236}
   - component: {fileID: 4256368497088027770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preloadCount: 10
+  health: 3
+  damage: 1
+  image: {fileID: 6844746476672260537}
 --- !u!50 &5429373905869241236
 Rigidbody2D:
   serializedVersion: 4
@@ -120,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4337070075242032689}
   - component: {fileID: 6844746476672260537}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

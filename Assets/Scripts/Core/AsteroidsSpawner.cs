@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Additions.Extensions;
 using Asteroids;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,12 +9,15 @@ namespace Core
 {
     public class AsteroidsSpawner : MonoBehaviour
     {
+        public event Action<Asteroid> OnAsteroidSpawned;
+        
         [SerializeField] private SpawnCorner leftSpawnCorner;
         [SerializeField] private SpawnCorner rightSpawnCorner;
         [SerializeField] private float minSpeed;
         [SerializeField] private float maxSpeed;
         [SerializeField] private Asteroid prefab;
         [SerializeField] private float spawnDelay;
+        [SerializeField] private List<Sprite> asteroidImages;
 
         private float _currentSpawnTime;
         
@@ -32,11 +37,15 @@ namespace Core
             float randomLerpNumber = Random.Range(0f, 1f);
 
             Asteroid newAsteroid = AsteroidsPool.Instance.Pop(prefab);
+            newAsteroid.SetImage(asteroidImages.GetRandomElement());
+            
             float angle = Mathf.Lerp(leftSpawnCorner.Angle, rightSpawnCorner.Angle, randomLerpNumber);
             Vector2 position = Vector2.Lerp(leftSpawnCorner.Position.position, rightSpawnCorner.Position.position, randomLerpNumber);
 
             newAsteroid.transform.position = position;
             newAsteroid.Fly(GetVectorDirection(angle), Random.Range(minSpeed, maxSpeed));
+            
+            OnAsteroidSpawned?.Invoke(newAsteroid);
         }
 
         private Vector2 GetVectorDirection(float angle)

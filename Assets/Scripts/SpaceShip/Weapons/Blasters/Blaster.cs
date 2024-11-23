@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace SpaceShip.Weapons.Blasters
@@ -10,7 +9,8 @@ namespace SpaceShip.Weapons.Blasters
         
         public override void Shoot()
         {
-            Bullet newBullet = Instantiate(bulletPrefab, shootPoint.position, quaternion.identity);
+            Bullet newBullet = BulletsPool.Instance.Pop(bulletPrefab);
+            newBullet.transform.position = shootPoint.position;
             newBullet.Shoot();
         }
     }

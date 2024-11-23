@@ -1,11 +1,14 @@
+using Additions.Pool;
 using Asteroids;
+using Damageables;
 using UnityEngine;
 
 namespace SpaceShip.Weapons.Blasters
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviourPoolObject
     {
+        [SerializeField] private float damage;
         [SerializeField] private float speed;
 
         private Rigidbody2D _rigidbody;
@@ -15,19 +18,25 @@ namespace SpaceShip.Weapons.Blasters
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Asteroid asteroid = other.transform.GetComponent<Asteroid>();
+            IDamageable asteroid = other.transform.GetComponent<Asteroid>();
 
-            if (asteroid)
+            if (asteroid != null)
             {
-                asteroid.TakeDamage();
+                asteroid.TakeDamage(damage);
+                Push();
             }
         }
 
         public void Shoot()
         {
             _rigidbody.velocity = Vector2.up * speed;
+        }
+
+        public override void Push()
+        {
+            BulletsPool.Instance.Push(this);
         }
     }
 }
