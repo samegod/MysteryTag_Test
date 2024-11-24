@@ -19,10 +19,14 @@ namespace Core
         [SerializeField] private float spawnDelay;
         [SerializeField] private List<Sprite> asteroidImages;
 
+        private bool _active;
         private float _currentSpawnTime;
         
         private void Update()
         {
+            if (!_active)
+                return;
+            
             _currentSpawnTime += Time.deltaTime;
 
             if (_currentSpawnTime >= spawnDelay)
@@ -35,6 +39,16 @@ namespace Core
         public void SetMinSpeed(float speed) => minSpeed = speed;
 
         public void SetMaxSpeed(float speed) => maxSpeed = speed;
+
+        public void Enable()
+        {
+            _active = true;
+        }
+
+        public void Disable()
+        {
+            _active = false;
+        }
         
         private void SpawnAsteroid()
         {

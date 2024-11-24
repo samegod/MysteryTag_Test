@@ -18,6 +18,7 @@ namespace SpaceShip
         [SerializeField] private Weapon currentWeapon;
         [SerializeField] private float moveSpeed;
 
+        private bool _active;
         private Rigidbody2D _rigidbody;
         private Health _health;
 
@@ -40,23 +41,45 @@ namespace SpaceShip
         
         public void Shoot()
         {
+            if (!_active)
+                return;
+            
             currentWeapon.Shoot();
+        }
+
+        public void Enable()
+        {
+            _active = true;
+        }
+
+        public void Disable()
+        {
+            _active = false;
         }
 
         public void TakeDamage(float damage)
         {
+            if (!_active)
+                return;
+            
             _health.DecreaseHealth(damage);
             OnHealthChanged?.Invoke();
         }
 
         private void Die()
         {
+            if (!_active)
+                return;
+
             Debug.Log("death");
             OnDeath?.Invoke();
         }
 
         private void Move()
         {
+            if (!_active)
+                return;
+
             Vector2 moveDirection;
             moveDirection.x = SimpleInput.GetAxis("Horizontal");
             moveDirection.y = SimpleInput.GetAxis("Vertical");
