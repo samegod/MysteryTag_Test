@@ -32,7 +32,11 @@ namespace Core
             }
         }
 
-        public void SpawnAsteroid()
+        public void SetMinSpeed(float speed) => minSpeed = speed;
+
+        public void SetMaxSpeed(float speed) => maxSpeed = speed;
+        
+        private void SpawnAsteroid()
         {
             float randomLerpNumber = Random.Range(0f, 1f);
 

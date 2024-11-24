@@ -30,6 +30,8 @@ namespace Core
             }
         }
 
+        public void SetShootDelay(float delay) => shotDelay = delay;
+
         private void Shoot()
         {
             ship.Shoot();

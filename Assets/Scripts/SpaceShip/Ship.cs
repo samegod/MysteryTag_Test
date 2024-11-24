@@ -36,6 +36,8 @@ namespace SpaceShip
             Move();
         }
 
+        public void SetMoveSpeed(float speed) => moveSpeed = speed;
+        
         public void Shoot()
         {
             currentWeapon.Shoot();

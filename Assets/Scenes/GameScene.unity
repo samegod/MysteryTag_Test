@@ -593,9 +593,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128d0478ccf64b2ab534b23a74829509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelNumber: 3
+  config: {fileID: 11400000, guid: 62bd9175338fcf34f852492e32ab19ba, type: 2}
   panel: {fileID: 1781424921}
   spawner: {fileID: 1214589396}
   playerShip: {fileID: 67979337}
+  shooter: {fileID: 67979339}
 --- !u!1 &819091850
 GameObject:
   m_ObjectHideFlags: 0
